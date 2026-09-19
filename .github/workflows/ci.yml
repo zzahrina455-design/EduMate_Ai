@@ -1,31 +1,46 @@
-name: CI/CD Quality Gate & Deployment
+name: CI/CD Pipeline - EduMate AI Quality Gate
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  build-and-test:
+  build-test-and-scan:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Dibutuhkan oleh SonarQube untuk analisis riwayat git
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
           cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Run Biome Linter
-        run: npm run lint
-      - name: Type Check
-        run: npx tsc --noEmit
-      - name: Build Production Bundle
-        run: npm run build
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Linter (Biome)
+        run: npx @biomejs/biome lint .
+
+      - name: Run Unit Tests & Generate Coverage
+        run: npx vitest run --coverage
+
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v3
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=edumate-ai
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.test.tsx,**/*.test.ts
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.qualitygate.wait=true
