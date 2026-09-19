@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 interface AuthProps {
   onNavigate?: (page: string) => void;
+  defaultTab?: 'login' | 'register'; // Menerima pilihan tab awal dari halaman luar
 }
 
-export default function Auth({ onNavigate }: AuthProps) {
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+export default function Auth({ onNavigate, defaultTab = 'login' }: AuthProps) {
+  const [activeTab, setActiveTab] = useState<'login' | 'register'>(defaultTab);
   
   // State Form Login
   const [loginEmail, setLoginEmail] = useState('');
@@ -41,7 +42,7 @@ export default function Auth({ onNavigate }: AuthProps) {
     setRegEmail('');
     setRegPassword('');
 
-    // Alihkan otomatis kembali ke tab Login
+    // Alihkan otomatis kembali ke tab Login di dalam komponen yang sama
     setActiveTab('login');
   };
 
