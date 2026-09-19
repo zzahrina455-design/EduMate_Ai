@@ -14,7 +14,6 @@ export default function Auth({ onNavigate }: AuthProps) {
   // State Form Register
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
-  const [regRole, setRegRole] = useState('mahasiswa');
   const [regPassword, setRegPassword] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
@@ -41,7 +40,6 @@ export default function Auth({ onNavigate }: AuthProps) {
     setRegName('');
     setRegEmail('');
     setRegPassword('');
-    setRegRole('mahasiswa');
 
     // Alihkan otomatis kembali ke tab Login
     setActiveTab('login');
@@ -138,18 +136,6 @@ export default function Auth({ onNavigate }: AuthProps) {
                 className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-sm bg-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none" 
                 placeholder="budi@dosen.uns.ac.id"
               />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Pilih Peran Utama</label>
-              <select 
-                value={regRole}
-                onChange={(e) => setRegRole(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-sm bg-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              >
-                <option value="mahasiswa" className="dark:bg-slate-900">Mahasiswa</option>
-                <option value="dosen" className="dark:bg-slate-900">Dosen / Pengajar</option>
-                <option value="tendik" className="dark:bg-slate-900">Tendik / Admin Kurasi</option>
-              </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Password</label>
