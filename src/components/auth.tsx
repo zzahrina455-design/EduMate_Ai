@@ -84,7 +84,7 @@ export default function Auth({ onNavigate }: AuthProps) {
         {activeTab === 'login' && (
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Email Kampus</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
               <input 
                 type="email" 
                 required 
@@ -116,7 +116,7 @@ export default function Auth({ onNavigate }: AuthProps) {
         {activeTab === 'register' && (
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Lengkap & Gelar</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Lengkap</label>
               <input 
                 type="text" 
                 required 
@@ -127,7 +127,7 @@ export default function Auth({ onNavigate }: AuthProps) {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Email Kampus</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
               <input 
                 type="email" 
                 required 
